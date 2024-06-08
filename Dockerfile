@@ -11,7 +11,7 @@ COPY nginx.conf /etc/nginx/nginx.conf
 
 COPY entrypoint.sh /entrypoint.sh
 COPY start.sh /start.sh
-RUN ln -s /start.sh /etc/periodic/daily/tv_grab_fr_telerama
+RUN ln -s /start.sh /etc/periodic/15min/tv_grab_fr_telerama
 
 EXPOSE 80
 
