@@ -1,4 +1,12 @@
 #!/bin/sh
+XMLFILE=/data/xmltv.xml
+CONFFILE=/config/tv_grab_fr_telerama.conf
+GRABBERFILE="usr/local/bin/tv_grab_fr_telerama
 
-[ -f /config/tv_grab_fr_telerama.conf ] || echo -e "yes\nall" | tv_grab_fr_telerama --configure --config-file /config/tv_grab_fr_telerama.conf
-/usr/local/bin/tv_grab_fr_telerama --config-file /config/tv_grab_fr_telerama.conf --output /data/xmltv.xml.new && mv /data/xmltv.xml.new /data/xmltv.xml || rm /data/xmltv.xml.new 
+[ -f "$CONFFILE" ] || echo -e "yes\nall" | "$GRABBERFILE" --configure --config-file "$CONFFILE"
+
+REFERENCEDATE=$((`date +%s` - 86400 ))                                                                                                                                              
+[  -f "$XMLFILE" ] && XMLFILEDATE=`stat -c "%Y" "$XMLFILE"` || XMLFILEDATE=0
+if [ $XMLFILEDATE -le $REFERENCEDATE ]; then
+   "$GRABBERFILE" --config-file "$CONFFILE" --output "$XMLFILE".new && mv "$XMLFILE".new "$XMLFILE" || rm "$XMLFILE".new
+fi
