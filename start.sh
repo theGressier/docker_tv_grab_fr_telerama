@@ -1,7 +1,7 @@
 #!/bin/sh
 XMLFILE=/data/xmltv.xml
 CONFFILE=/config/tv_grab_fr_telerama.conf
-GRABBERFILE=usr/local/bin/tv_grab_fr_telerama
+GRABBERFILE=/usr/local/bin/tv_grab_fr_telerama
 
 [ -f "$CONFFILE" ] || echo -e "yes\nall" | "$GRABBERFILE" --configure --config-file "$CONFFILE"
 
